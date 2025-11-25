@@ -1,11 +1,11 @@
-import * as customErrors from "../errorHandler.js";
+import * as customErrors from "../utils/errorHandler.js";
 import type {Country} from "../models/country.js";
 
 
 
 export async function fetchCountries(): Promise <Country []> {
     try{
-        const url = 'https://restcountries.com/v3.1/all?fields=name,capital,region,languages,population,flag,flags';
+        const url = 'https://restcountries.com/v3.1/all?fields=name,capital,region,subregion,currencies,borders,languages,population,flags,cca3';
         const response = await fetch(url)
         if(!response.ok){
              throw new customErrors.NetworkError((` 🛑 Network Error: ${response.status}`));

@@ -3,45 +3,85 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./styles.css">
+
+        <script src="https://cdn.tailwindcss.com"></script>
    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <title>Document</title>
+    <style>
+        /* Custom styles for theme toggle and pointer */
+        [data-bs-theme="dark"] body {
+            background-color: #202c37;
+            color: #ffffff;
+        }
+        [data-bs-theme="dark"] .card {
+            background-color: #2b3945;
+            color: #ffffff;
+            border: 1px solid #2b3945;
+        }
+        [data-bs-theme="light"] body {
+            background-color: #fafafa;
+            color: #111517;
+        }
+        .cursor-pointer {
+            cursor: pointer;
+        }
+        .hover\:shadow-lg:hover {
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        .transition-shadow {
+            transition: box-shadow 0.3s ease-in-out;
+        }
+    </style>
 </head>
-<body>
+<body  data-bs-theme="light">
 <div id="appContainerDiv" class="container-fluid">
- <nav class="navbar  navbar-light bg-light">
-   <a class="navbar-brand fw-bold" href="#">Where in the world?</a>
-                   <!-- theme toggle button -->
-                    <button class="btn btn-outline-secondary d-flex align-items-center me-3" 
-                            type="button" 
-                            id="themeToggleBtn" 
-                            aria-label="Toggle dark/light mode">
-                        <span id="themeIcon">☀️ Light</span>
-                    </button>
+<nav class="navbar navbar-expand-lg py-3 px-4 shadow-lg" > 
+   <a class="navbar-brand fw-bold fs-4" href="#">Where in the world?</a>
+    <button id="themeToggleBtn" class="btn btn-outline-secondary">
+        <span id="themeIcon">🌙 Dark</span>
+    </button>
 </nav>
- <div class="d-flex align-items-center justify-content-between">
-
-    <form class="d-flex pt-4 my-2 my-lg-0 me-3"> 
-      <input class="form-control w-50 me-2" type="search" placeholder="Search" aria-label="Search">
-      <button class="btn btn-success" type="submit">Search</button>
+    <section id="listView">
+ <div class="d-flex pb-3 align-items-center justify-content-between">
+    <form class=" pt-4 my-2 my-lg-0 me-3"> 
+      <input id="searchInput"  class="form-control w-100 me-2 " type="search" placeholder=" 🔍Search for a country" aria-label="Search">
     </form>
 
-    <div class="btn-group">
-      <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" data-bs-auto-close="inside" aria-expanded="false">
-        Filter by Region
-      </button>
-      <ul class="dropdown-menu">
-        <li><a class="dropdown-item" href="#">Africa</a></li>
-        <li><a class="dropdown-item" href="#">Americas</a></li>
-        <li><a class="dropdown-item" href="#">Asia</a></li>
-        <li><a class="dropdown-item" href="#">Europe</a></li>
-        <li><a class="dropdown-item" href="#">Oceania</a></li>
-      </ul>
-    </div>
+     <div class="btn-group my-2">
+                <!-- ID ADDED BACK FOR JAVASCRIPT -->
+                <button id="regionFilterButton" class="btn btn-secondary dropdown-toggle shadow-sm" type="button" data-bs-toggle="dropdown" data-bs-auto-close="true" aria-expanded="false">
+                    Filter by Region
+                </button>
+                <!-- ID ADDED BACK FOR JAVASCRIPT -->
+                <ul class="dropdown-menu shadow" id="dropdown-menu"> 
+                    <li><option class="dropdown-item" value="all">All</option></li>
+                    <li><option class="dropdown-item" value="africa">Africa</option></li>
+                    <li><option class="dropdown-item" value="americas">Americas</option></li>
+                    <li><option class="dropdown-item" value="asia">Asia</option></li>
+                    <li><option class="dropdown-item" value="europe">Europe</option></li>
+                    <li><option class="dropdown-item" value="oceania">Oceania</option></li>
+                </ul>
+            </div>
     
 </div>
  <div id="countryList">
+         <p class="text-center w-100">Loading countries...</p>
 </div>
+</section>
+
+
+            <!-- 2. Detail View Section (Hidden initially) -->
+            <section id="detailView" class="hidden pt-2">
+                <!-- Back button -->
+                <button id="backButton" class="btn btn-secondary shadow-md mb-8">
+                    &leftarrow; Back
+                </button>
+                
+                <!-- Country details will be rendered here by src/main.js -->
+                <div id="countryDetailsContainer" class="p-4">
+                    <!-- Dynamic Detail Content -->
+                </div>
+            </section> 
 </div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 <script src="./src/main.js" type="module"></script>
