@@ -45,9 +45,8 @@ export function applyFiltersAndSearch(allCountryData: country.Country[], renderC
     // 2. Apply Search Filter
     if (searchTerm) {
         filteredData = filteredData.filter(country => 
-            // Also search by officialName for better results
             country.name.toLowerCase().includes(searchTerm) || 
-            // country.officialName.toLowerCase().includes(searchTerm) ||
+            country.officialName.toLowerCase().includes(searchTerm) ||
             country.capital?.toLowerCase().includes(searchTerm) 
         );
     }

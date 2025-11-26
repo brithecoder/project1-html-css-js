@@ -43,7 +43,7 @@ export function renderDetailsPage(countryName: string, allCountryData: any[]) {
             <!-- Flag Image Column (Mobile stacks, Desktop takes 5/12 width) -->
              <div class="col-12 col-md-5 d-flex justify-content-center justify-content-md-start align-items-start pt-md-4">
                 <img src="${countryData.flagPicture}" alt="Flag of ${countryData.name}" 
-                     class="shadow-xl rounded-lg max-w-full" style="max-height: 300px; object-fit: contain;">
+                     class="shadow-xl rounded-lg max-w-full" style="max-height: 300px; object-fit: contain;" aria-label="Flag of ${countryData.name}">
             </div>
 
                <!-- Details Column -->

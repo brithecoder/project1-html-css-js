@@ -101,6 +101,8 @@ export function renderCountryListandCards(countryDataArray: country.Country[],co
         cardImage.classList.add("card-img-top","d-block", "mx-auto");
         cardImage.src = country.flagPicture;
         cardImage.alt = country.name;
+        cardImage.setAttribute('aria-label',`Flag of ${country.name}`)
+
 
         cardImage.style.maxHeight = "100px";
         cardImage.style.width = "auto";

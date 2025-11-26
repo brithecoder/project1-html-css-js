@@ -36,8 +36,8 @@
 <body  data-bs-theme="light">
 <div id="appContainerDiv" class="container-fluid">
 <nav class="navbar navbar-expand-lg py-3 px-4 shadow-lg" > 
-   <a class="navbar-brand fw-bold fs-4" href="#">Where in the world?</a>
-    <button id="themeToggleBtn" class="btn btn-outline-secondary">
+   <a class="navbar-brand fw-bold fs-4 me-auto"  href="#">Where in the world?</a>
+    <button id="themeToggleBtn" class="btn btn-outline-secondary" aria-label="Themetoggle">
         <span id="themeIcon">🌙 Dark</span>
     </button>
 </nav>
@@ -49,7 +49,7 @@
 
      <div class="btn-group my-2">
                 <!-- ID ADDED BACK FOR JAVASCRIPT -->
-                <button id="regionFilterButton" class="btn btn-secondary dropdown-toggle shadow-sm" type="button" data-bs-toggle="dropdown" data-bs-auto-close="true" aria-expanded="false">
+                <button id="regionFilterButton" class="btn btn-secondary dropdown-toggle shadow-sm" type="button" data-bs-toggle="dropdown" data-bs-auto-close="true" aria-expanded="false" aria-label="FilterByRegion">
                     Filter by Region
                 </button>
                 <!-- ID ADDED BACK FOR JAVASCRIPT -->
@@ -73,7 +73,7 @@
             <!-- 2. Detail View Section (Hidden initially) -->
             <section id="detailView" class="hidden pt-2">
                 <!-- Back button -->
-                <button id="backButton" class="btn btn-secondary shadow-md mb-8">
+                <button id="backButton" class="btn btn-secondary shadow-md mb-8" aria-label="CloseDetails">
                     &leftarrow; Back
                 </button>
                 <!-- Country details will be rendered here by src/main.js -->
