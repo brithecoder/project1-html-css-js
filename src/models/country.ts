@@ -32,7 +32,6 @@ export class Country{
     borders: string[];
     language: string | undefined; // Will store the first language name
     population: number;
-    flagEmoji: string;
     flagPicture: string;
     alpha3Code: string;
 
@@ -45,7 +44,7 @@ export class Country{
     borders:string[],
     APILanguages: APILanguages,
     population: number,
-    flagEmoji: string,
+  
     flagPicture: APIFlags,
     alpha3Code: string
    
@@ -63,14 +62,13 @@ export class Country{
         const languageNames = Object.values(safeLanguages);
     this.language = languageNames.length > 0 ? languageNames[0] : 'N/A';
     this.population = population;
-    this.flagEmoji = flagEmoji;
     this.flagPicture = flagPicture?.png || flagPicture?.svg || 'N/A';
      this.borders = borders || [];
      this.alpha3Code = alpha3Code
     
     }
     displayDetails = (): string => {
-        return `The country of ${this.name} is located in ${this.region}, has a population of ${this.population} and speaks ${this.language} ${this.flagEmoji}`
+        return `The country of ${this.name} is located in ${this.region}, has a population of ${this.population} and speaks ${this.language}`
     }
 
 }

@@ -1,54 +1,19 @@
-import * as apiCalls from './services/apiSevices.js';
+import * as apiCalls from './services/apiServices.js';
 import * as country from './models/country.js';
 import * as customErrors from './utils/errorHandler.js';
+import * as countyFilterandSearch from './utils/filterFuctions.js';
+import * as themetoggle from './utils/toggletheme.js';
 import { router as detailRouter, navigateToDetails } from './utils/detailspageRender.js';
-// --- Theme Management Logic ---
-const themeKey = 'countryAppTheme';
-document.addEventListener('DOMContentLoaded', () => {
-    loadTheme();
-    const countryListBody = document.getElementById('countryList');
-    window.addEventListener('hashchange', runRouter);
-    document.getElementById('backButton')?.addEventListener('click', () => {
-        window.location.hash = ''; // Navigates back to the home view
-        runRouter(); // Run router immediately
-    });
-    document.getElementById('themeToggleBtn')?.addEventListener('click', toggleTheme);
-    main(countryListBody);
-});
-function runRouter() {
+export let allCountryData = [];
+const getCountryListBody = () => document.getElementById('countryList');
+function runRouter(applyFiltersAndSearch) {
     // We pass allCountryData and the filtering callback to the external router
     detailRouter(allCountryData, applyFiltersAndSearch);
 }
-function loadTheme() {
-    const savedTheme = localStorage.getItem(themeKey) || 'light';
-    document.body.setAttribute('data-bs-theme', savedTheme);
-    updateThemeToggle(savedTheme);
-}
-function updateThemeToggle(currentTheme) {
-    const btn = document.getElementById('themeToggleBtn');
-    const icon = document.getElementById('themeIcon');
-    if (icon) {
-        if (currentTheme === 'dark') {
-            icon.innerHTML = '💡 Light';
-            if (btn)
-                btn.classList.replace('btn-outline-secondary', 'btn-outline-warning');
-        }
-        else {
-            icon.innerHTML = '🌙 Dark';
-            if (btn)
-                btn.classList.replace('btn-outline-warning', 'btn-outline-secondary');
-        }
-    }
-}
-function toggleTheme() {
-    const currentTheme = document.body.getAttribute('data-bs-theme');
-    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-    document.body.setAttribute('data-bs-theme', newTheme);
-    localStorage.setItem(themeKey, newTheme);
-    updateThemeToggle(newTheme);
-}
-let allCountryData = [];
-async function main(countryListBody) {
+document.getElementById('backButton')?.addEventListener('click', () => {
+    window.location.hash = '';
+});
+async function main() {
     console.log("--- Starting Country Data Processing ---");
     console.log("Fetching country data from County API...");
     try {
@@ -59,21 +24,34 @@ async function main(countryListBody) {
             throw new customErrors.DataError("API returned no valid country data.");
         }
         const countryInstances = rawCountryDataArray.map((countryData) => {
-            const instance = new country.Country(countryData.name, countryData.capital, countryData.region, countryData.subregion, countryData.currencies, countryData.borders, countryData.languages, countryData.population, countryData.flag, countryData.flags, countryData.cca3);
-            allCountryData.push(instance);
-            console.log(instance);
-            return instance;
+            return new country.Country(countryData.name, countryData.capital, countryData.region, countryData.subregion, countryData.currencies, countryData.borders, countryData.languages, countryData.population, countryData.flags, countryData.cca3);
         });
-        renderCountryList(countryInstances, countryListBody);
+        allCountryData = countryInstances;
+        console.log(`Successfully mapped ${allCountryData.length} country instances.`);
+        // 1. Load the theme preference and set up the toggle listener
+        themetoggle.loadTheme();
+        themetoggle.setupThemeToggle();
+        const filterAndRender = () => countyFilterandSearch.applyFiltersAndSearch(allCountryData, renderCountryListandCards);
+        countyFilterandSearch.setupSearchListener(allCountryData, renderCountryListandCards);
+        countyFilterandSearch.setupFilterListener(allCountryData, renderCountryListandCards);
+        // 4. Initial render of the list
+        filterAndRender();
+        window.addEventListener('hashchange', () => runRouter(filterAndRender));
+        // Run router on initial load to handle direct deep links
+        runRouter(filterAndRender);
     }
     catch (error) {
         customErrors.handleError(error);
+        const countryListBody = document.getElementById('countryList');
+        if (countryListBody) {
+            countryListBody.innerHTML = '<p class="text-danger p-5 fs-5">Failed to load data. Please check the console for details.</p>';
+        }
     }
     finally {
         console.log("❤️ This is the end of the program ❤️");
     }
 }
-function renderCountryList(countryDataArray, countryListBody) {
+export function renderCountryListandCards(countryDataArray, countryListBody) {
     if (countryListBody) {
         countryListBody.classList.add("row", "g-4");
         countryListBody.innerHTML = '';
@@ -129,67 +107,5 @@ function renderCountryList(countryDataArray, countryListBody) {
         console.error(new customErrors.DataError(`Could not find list container.`));
     }
 }
-function updateRegionFilterButton(region) {
-    const button = document.getElementById('regionFilterButton');
-    if (button) {
-        button.textContent = region === 'All' ? 'Filter by Region' : region;
-    }
-}
-function filterCountriesByRegion(selectedRegion) {
-    const countryListBody = document.getElementById('countryList');
-    let filteredData;
-    selectedRegion === 'All' ? filteredData = allCountryData : filteredData = allCountryData.filter(country => country.region === selectedRegion);
-    // Update the button text to show the currently selected region
-    updateRegionFilterButton(selectedRegion);
-    // Re-render the list with the filtered data
-    renderCountryList(filteredData, countryListBody);
-}
-// Region Dropdown Listener 
-const regionDropDown = document.getElementById("dropdown-menu");
-if (regionDropDown) {
-    regionDropDown.addEventListener("click", function (event) {
-        const target = event.target;
-        if (target && target.classList.contains("dropdown-item")) {
-            event.preventDefault();
-            const selectedRegion = target.textContent;
-            console.log(selectedRegion);
-            // CALL THE  FILTERING FUNCTION
-            if (selectedRegion) {
-                filterCountriesByRegion(selectedRegion);
-            }
-        }
-    });
-}
-// --- Filtering and Search Logic ---
-let currentRegionFilter = 'All';
-const searchInput = document.getElementById("searchInput");
-if (searchInput instanceof HTMLInputElement) { // Use instanceof for better type checking
-    searchInput.addEventListener('input', function (event) {
-        // 1. Get the target element (which is the input)
-        const targetInput = event.target;
-        const searchTerm = targetInput.value;
-        console.log("Search Term:", searchTerm);
-        // 4. Critically, call the function that handles filtering and rendering
-        applyFiltersAndSearch();
-        // Note: No need for event.preventDefault() here.
-    });
-}
-function applyFiltersAndSearch() {
-    const countryListBody = document.getElementById('countryList');
-    const searchInput = document.getElementById('searchInput');
-    const searchTerm = searchInput?.value.toLowerCase() || '';
-    let filteredData = allCountryData;
-    // 1. Apply Region Filter (uses currentRegionFilter state)
-    if (currentRegionFilter !== 'All') {
-        filteredData = filteredData.filter(country => country.region === currentRegionFilter);
-    }
-    // 2. Apply Search Filter
-    if (searchTerm) {
-        filteredData = filteredData.filter(country => country.name.toLowerCase().includes(searchTerm) ||
-            country.capital?.toLowerCase().includes(searchTerm));
-    }
-    // Render the list using the module-scoped variable (countryListBody)
-    renderCountryList(filteredData, countryListBody);
-    console.error("Error: Cannot render list. The countryListBody element is null.");
-}
+main();
 //# sourceMappingURL=main.js.map

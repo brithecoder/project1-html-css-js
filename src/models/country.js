@@ -7,10 +7,9 @@ export class Country {
     borders;
     language; // Will store the first language name
     population;
-    flagEmoji;
     flagPicture;
     alpha3Code;
-    constructor(APIName, APICapital, region, subregion, currency, borders, APILanguages, population, flagEmoji, flagPicture, alpha3Code) {
+    constructor(APIName, APICapital, region, subregion, currency, borders, APILanguages, population, flagPicture, alpha3Code) {
         this.name = APIName.common;
         this.capital = APICapital && APICapital.length > 0 ? APICapital[0] : 'N/A';
         this.region = region;
@@ -22,13 +21,12 @@ export class Country {
         const languageNames = Object.values(safeLanguages);
         this.language = languageNames.length > 0 ? languageNames[0] : 'N/A';
         this.population = population;
-        this.flagEmoji = flagEmoji;
         this.flagPicture = flagPicture?.png || flagPicture?.svg || 'N/A';
         this.borders = borders || [];
         this.alpha3Code = alpha3Code;
     }
     displayDetails = () => {
-        return `The country of ${this.name} is located in ${this.region}, has a population of ${this.population} and speaks ${this.language} ${this.flagEmoji}`;
+        return `The country of ${this.name} is located in ${this.region}, has a population of ${this.population} and speaks ${this.language}`;
     };
 }
 //# sourceMappingURL=country.js.map

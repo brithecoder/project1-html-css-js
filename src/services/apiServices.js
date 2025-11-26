@@ -19,4 +19,4 @@ export async function fetchCountries() {
         throw Error;
     }
 }
-//# sourceMappingURL=apiSevices.js.map
+//# sourceMappingURL=apiServices.js.map
