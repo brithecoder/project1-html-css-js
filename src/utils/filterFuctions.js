@@ -12,7 +12,7 @@ export function setupSearchListener(allCountryData, renderCountryList) {
         searchInput.addEventListener('input', function (e) {
             const targetInput = e.target;
             const searchTerm = targetInput.value;
-            console.log("Search Term:", searchTerm);
+            // console.log("Search Term:", searchTerm);
             // Re-run filtering on every input change, passing the dependencies
             applyFiltersAndSearch(allCountryData, renderCountryList);
         });
@@ -45,7 +45,7 @@ export function setupFilterListener(allCountryData, renderCountryList) {
                 const selectedRegion = target.textContent;
                 if (selectedRegion) {
                     // const newRegion = selectedRegion.trim(); 
-                    console.log(selectedRegion);
+                    // console.log(selectedRegion);
                     currentRegionFilter = selectedRegion;
                     // 2. Update the button text
                     updateRegionFilterButton(selectedRegion);

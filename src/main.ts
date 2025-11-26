@@ -88,7 +88,7 @@ export function renderCountryListandCards(countryDataArray: country.Country[],co
 
            // Card Click Listener**
         card.addEventListener('click', () => {
-             console.log(`CARD CLICKED: Displaying details for ${country.name}`);
+            //  console.log(`CARD CLICKED: Displaying details for ${country.name}`);
                 navigateToDetails(country.name);
         });
           

@@ -11,7 +11,7 @@ export async function fetchCountries() {
             throw new customErrors.DataError("API returned a valid response, but the country list is empty.");
         }
         console.log(`  ✅ ✅Successfully fetched ${countryArray.length} countries. ✅ ✅`);
-        console.log(countryArray);
+        // console.log(countryArray);
         return countryArray;
     }
     catch (e) {
