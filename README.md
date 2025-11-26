@@ -35,4 +35,4 @@ Users should be able to:
 
 ### What I learned
 
-I learned alot Especially when doing the country code look up to display the bordering country badges.I also learned that a class can look differently when exectracting data from different APIs
+I learned a lot especially when doing the country code look up to display the bordering country badges.I also learned that a class can look differently when extracting data from different APIs
