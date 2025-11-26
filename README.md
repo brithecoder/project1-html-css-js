@@ -10,9 +10,8 @@ utilizing the [REST Countries API](https://restcountries.com).
 
 ## My process
 
-First I looked at how the data would be return from the API if I made a fetch.The data came in as an array of county objects with different field objects inside the country object. I realize I had to use multiple fields for my project but you can only call ten at a time if you are receiving all of the country objects.I had to refactor my County class as my application grew and I realized how the different properties were coming in. After making sure my cards displayed
-correctly I then worked on the search and filter functionality. After search and filter functionality I then worked on displaying the details page of each country,I went with an SPA approach ,for this I had to implement a router. After that was working correctly
-I worked on the css of the cards and the page.This is when I worked on the toggle theme functionality.I had to fix the name of the country constructor to get the Common,Official, and Native names. 
+First I looked at how the data would be return from the API if I made a fetch.The data came in as an array of country objects with different field objects inside the country object. I realize I had to use multiple fields for my project but you can only call ten at a time if you are receiving all of the country objects.I had to refactor my County class as my application grew and I realized how the different properties were coming in. After making sure my cards displayed correctly I then worked on the search and filter functionality. After search and filter functionality I then worked on displaying the details page of each country,I went with an SPA approach ,for this I had to implement a router. After that was working correctly
+I worked on the css of the cards and the page.This is when I worked on the toggle theme functionality.I had to fix the name of the country constructor to get the Common,Official, and Native names. Something I would add is making border country badges clickable to display the details of that country.
 
 
  [!screenshot of app](/screenshot.png?raw=true)
