@@ -44,7 +44,7 @@ export function renderDetailsPage(countryName, allCountryData) {
                 <div class="row">
                     <!-- Column 1 -->
                     <div class="col-12 col-lg-6 mb-4">
-                        <p class="font-semibold mb-1">Official Name: <span class="font-normal">${countryData.name}</span></p>
+                        <p class="font-semibold mb-1">Official Name: <span class="font-normal">${countryData.officialName}</span></p>
                         <p class="font-semibold mb-1">Population: <span class="font-normal">${countryData.population.toLocaleString()}</span></p>
                         <p class="font-semibold mb-1">Region: <span class="font-normal">${countryData.region}</span></p>
                         <p class="font-semibold mb-1">Capital: <span class="font-normal">${countryData.capital || 'N/A'}</span></p>
@@ -52,7 +52,7 @@ export function renderDetailsPage(countryName, allCountryData) {
                  
                    <!-- Column 2: Secondary Data -->
                         <div class="col-12 col-lg-6 mb-4">
-                        <p class="font-semibold mb-1">Native Name: <span class="font-normal">${countryData.nativeName || 'N/A'}</span></p>
+                        <p class="font-semibold mb-1">Native Name: <span class="font-normal">${countryData.nativeNameCommon || 'N/A'}</span></p>
                         <p class="font-semibold mb-1">Sub Region: <span class="font-normal">${countryData.subregion || 'N/A'}</span></p>
                         <p class="font-semibold mb-1">Currencies: <span class="font-normal">${countryData.currency || 'N/A'}</span></p>
                         <p class="font-semibold mb-1">Languages: <span class="font-normal">${countryData.language || 'N/A'}</span></p>

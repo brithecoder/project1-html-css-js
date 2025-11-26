@@ -108,15 +108,11 @@ export function renderCountryListandCards(countryDataArray: country.Country[],co
      
 
         const cardTitle = document.createElement("h5");
-        cardTitle.classList.add("card-title");
+        cardTitle.classList.add("card-title","fw-bold", "mb-3", "fs-4");
         cardTitle.textContent = country.name;
-
-
-
 
         const cardContent = document.createElement("div");
         cardContent.classList.add("card-text");
-        // cardContent.textContent = country.displayDetails();
 
         const cardPopulation = document.createElement("p");
         cardPopulation.textContent = `POPULATION:${country.population.toLocaleString()}`
