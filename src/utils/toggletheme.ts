@@ -16,7 +16,7 @@ function updateThemeToggle(currentTheme: string) {
             if (btn) btn.classList.replace('btn-outline-secondary', 'btn-outline-warning');
         } else {
             // Display Dark icon for light mode (click to switch to dark)
-            icon.innerHTML = '☀️ Dark';
+            icon.innerHTML = '🌙 Dark';
             if (btn) btn.classList.replace('btn-outline-warning', 'btn-outline-secondary');
         }
     }
