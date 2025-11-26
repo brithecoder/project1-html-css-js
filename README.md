@@ -6,7 +6,7 @@ You can also view app from github pages with the link provided below.
 ## Overview
 
 This project displays knowledge of HTML,CSS,and TypeScript/JavaScript I am also 
-utilizing the [REST Countries API](https://restcountries.com).
+utilizing the [REST Countries API](https://restcountries.com).I used bootstraps and a tad of tailwind for css. 
 
 ## My process
 
